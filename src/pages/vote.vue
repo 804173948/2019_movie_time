@@ -25,15 +25,11 @@ import love from "../assets/thumb1.png"
 import loveActive from "../assets/thumb2.png"
 import $ from "jquery"
 
-const bbt = "https://hemc.100steps.net/2017/wechat/Home/Index/index?state=";
-const PREFIX = "/resource/post/" 
-const baseUrl="https://hemc.100steps.net/2019/carving-time-backend/api/"; //"http://111.230.183.100:5000";
-
 export default {
   name: "vote",
   data(){
     return{
-      keyword:'动画',
+      keyword:'',
       tot:0,
       movies: [],
       love:love,
@@ -104,8 +100,16 @@ export default {
       })
       this.isClick=!this.isClick
    }
+<<<<<<< HEAD
  }
 }
+=======
+ },
+ mounted(){
+   this.keyword="动画"
+ }
+ }
+>>>>>>> e872dfb3d52a753e1d6933af0407cdec46d72ffb
 </script>
 
 <style>
