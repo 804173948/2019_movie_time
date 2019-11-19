@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        @keyframes bimg1 {
+
+0% {top: 100px;opcaity:100%;}
+
+100% {top: 0px;opacity:0}
+
+}
+
+@keyframes bimg2 {
+
+0%  {left:25px;}
+50% {left:0px;}
+100% {left: 100px;}
+
+}
+
+.item {
+position: absolute;
+top:100px;
+left:25px;
+
+}
+.hidden{
+    display:none;
+}
+.move{
+    animation: bimg1 1s  cubic-bezier(0,0,1,1),bimg2 1s cubic-bezier(0,0.71,1,1);
+}
+    </style>
+</head>
+<body>
+    <button onclick="zan()">赞</button>
+    <img src="thumb1.jpg" class="item hidden" id="pic1">
+    <img src="thumb2.jpg" class="item hidden" id="pic2">
+    <img src="thumb3.jpg" class="item hidden" id="pic3">
+</body>
+<script>
+    // function addClass(elem,str){
+    //     if (elem.className){
+    //         var oriName=elem.className;
+    //         var newClass=oriName+" "+str;
+    //         elem.clasName=newClass;
+    //     }else{
+    //         elem.className=str;
+    //     }
+    // }
+    function zan(){
+        var t=0;
+        var timer=setInterval(() => {
+            t++;
+            if (t==3) {clearInterval(timer)}
+            var who="pic"+String(t);
+            console.log(who);
+            document.getElementById(who).className="item move";
+        },500);
+    }
+</script>
+</html>

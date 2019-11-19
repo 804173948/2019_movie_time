@@ -62,7 +62,7 @@ export default {
             console.log("电影类型错误")
           },
           401(){
-            // location.href=bbt+encodeURIComponent(location.href);
+             location.href=bbt+encodeURIComponent(location.href);
           },
           410(){
             alert("活动不在进行期间")
