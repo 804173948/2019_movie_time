@@ -12,8 +12,8 @@
     <div class="intro">
       <div class="m-title">{{movie.title}}</div>
       <div class="score">{{movie.score}}</div>
-      <img @click="like" class="love" v-if="isClick==0" :src="love">
-      <img @click="like" class="love" v-if="isClick==1" :src="loveActive">
+      <img @click="like" class="love" v-if="movie.isClick==0" :src="love">
+      <img @click="like" class="love" v-if="movie.isClick==1" :src="loveActive">
       <div class="abstract">{{movie.introduction}}</div>
     </div>
   </div>
@@ -54,7 +54,12 @@ export default {
         success:res=>{
           this.movies = res.map( movie => ({
             ...movie,
-            poster_url: PREFIX + movie.poster_url
+            poster_url: PREFIX + movie.poster_url,
+            "movie.movie_id":movie_id,
+            "movie.title":title,
+            "movie.score":score,
+            "movie.introduction":introduction,
+            "movie.isClick":isSelected
           }))
         },
         statusCode:{
@@ -73,12 +78,33 @@ export default {
   },
   methods:{
     like:function(){
-      if (this.isClick==true) {this.tot++}
-       else {this.tot--}
+        $.ajax({
+        url:baseUrl+"/like",
+        type:"post",
+        data:{
+          "movie_id":this.movie_id,
+          "isSlected":this.isClick
+        },
+        dataType:"JSON",
+        xhrFields:{withCredentials:true},
+        success:res=>{
+          this.tot=res.selectNum
+        },
+        statusCode:{
+          401(){
+            // location.href=bbt+encodeURIComponent(location.href);
+          },
+          403(){
+            alert("投票不能再多了")
+          },
+          410(){
+            alert("活动不在进行期间")
+          }
+        }
+      })
       this.isClick=!this.isClick
-    }
-  },
-};
+   }
+ }
 </script>
 
 <style>
