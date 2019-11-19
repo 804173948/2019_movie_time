@@ -8,7 +8,7 @@ Vue.use(elementui)
 Vue.config.productionTip = false
 
 const bbt = "https://hemc.100steps.net/2017/wechat/Home/Index/index?state=";
-const PREFIX = "/resource/post/" 
+const PREFIX = ""//"/resource/post/"
 const baseUrl="http://111.230.183.100:5000";
 
 new Vue({

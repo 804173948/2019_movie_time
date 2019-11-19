@@ -100,16 +100,16 @@ export default {
       })
       this.isClick=!this.isClick
    }
-<<<<<<< HEAD
+/*<<<<<<< HEAD
  }
 }
-=======
+=======*/
  },
  mounted(){
    this.keyword="动画"
  }
  }
->>>>>>> e872dfb3d52a753e1d6933af0407cdec46d72ffb
+//>>>>>>> e872dfb3d52a753e1d6933af0407cdec46d72ffb
 </script>
 
 <style>
