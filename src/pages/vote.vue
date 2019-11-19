@@ -27,7 +27,7 @@ import $ from "jquery"
 
 const bbt = "https://hemc.100steps.net/2017/wechat/Home/Index/index?state=";
 const PREFIX = "/resource/post/" 
-const baseUrl="http://111.230.183.100:5000";
+const baseUrl="https://hemc.100steps.net/2019/carving-time-backend/api/"; //"http://111.230.183.100:5000";
 
 export default {
   name: "vote",
@@ -92,7 +92,7 @@ export default {
         },
         statusCode:{
           401(){
-            // location.href=bbt+encodeURIComponent(location.href);
+            location.href=bbt+encodeURIComponent(location.href);
           },
           403(){
             alert("投票不能再多了")
@@ -105,6 +105,7 @@ export default {
       this.isClick=!this.isClick
    }
  }
+}
 </script>
 
 <style>

@@ -24,7 +24,7 @@ import btn1 from "../components/btn1"
 import btn2 from "../components/btn2"
 import $ from "jquery"
 import btn3 from "../components/btn3"
-const baseUrl="http://111.230.183.100:5000";
+const baseUrl="https://hemc.100steps.net/2019/carving-time-backend/api/"; //"http://111.230.183.100:5000";
 export default {
   name: "bottle",
   data(){
