@@ -55,11 +55,11 @@ export default {
           this.movies = res.map( movie => ({
             ...movie,
             poster_url: PREFIX + movie.poster_url,
-            "movie.movie_id":movie_id,
-            "movie.title":title,
-            "movie.score":score,
-            "movie.introduction":introduction,
-            "movie.isClick":isSelected
+            "movie_id":movie.movie_id,
+            "title":movie.title,
+            "score":movie.score,
+            "introduction":movie.introduction,
+            "isSelected":movie.isClick
           }))
         },
         statusCode:{
@@ -77,7 +77,7 @@ export default {
     }
   },
   methods:{
-    like:function(){
+    like(){
         $.ajax({
         url:baseUrl+"/like",
         type:"post",
