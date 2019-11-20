@@ -18,6 +18,18 @@
             <el-tab-pane label="剧情" name="剧情"></el-tab-pane>
             <el-tab-pane label="惊悚" name="惊悚" ></el-tab-pane>
         </el-tabs>
+        <div class="tips" v-show="showTip">
+            <div class="tipbox" @click="hide">
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                <div class="title">电投规则</div>
+                <div class="text">
+                    每个参与者12票,
+                    每个分区最多投6票
+                </div>
+                </div>
+                <div class="btn" @click="hide">X</div>
+            </div>
+        </div>
         <div class="movies-content">
             <div class="item" v-for="movie in movies" :key="movie.movie_id">
                 <img class="pic" :src="movie.poster_url">
@@ -51,6 +63,7 @@
                 love:love,
                 loveActive:loveActive,
                 isLoad:false,
+                showTip:true,
             }
         },
         watch:{
@@ -130,6 +143,9 @@
                         }
                     }
                 })
+            },
+            hide(){
+                this.showTip = false;
             }
         },
         mounted(){
@@ -145,6 +161,50 @@
         height: 100%;
         background-color: #273453;
         overflow-x: hidden;
+    }
+    .tips {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        z-index: 23;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    .tipbox{
+        position: absolute;
+        width: 62%;
+        height: 68.7vw;
+        background-color: #d8d4c4;
+        border-radius: 2vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 4vw;
+        box-sizing: border-box;
+        justify-content: space-between;
+    }
+    .title {
+        color: #000000;
+        font-size: 6vw;
+    }
+    .text {
+        font-size: 4vw;
+        color: #000000;
+    }
+    .btn {
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        border: #000000 solid 1px;
+        padding: 0;
+        margin: 0;
+        line-height: 28px;
+        text-align: center;
+        font-weight: 400;
+        color: #000000;
     }
     .main .el-tabs__item {
         padding: 0 20px;
