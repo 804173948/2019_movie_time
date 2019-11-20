@@ -13,7 +13,7 @@ export default {
   },
   methods:{
       gotoQuestion(){
-          // window.localtion.href="";
+          location.href="https://hemc.100steps.net/2019/carving-time/guess/#/index";
     },
   }
 }

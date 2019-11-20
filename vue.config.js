@@ -1,4 +1,4 @@
 module.exports = {
-    publicPath: "/2019_movie_time/",
+    publicPath: "./", //"/2019_movie_time/",
      productionSourceMap: false 
 }

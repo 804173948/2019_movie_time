@@ -1,23 +1,37 @@
 <template>
     <div class="main">
-        <el-tabs type="border-card" stretch="true" v-model="keyword">
+
+        <div v-if="isLoad" class="box">
+            <div class="loading">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <el-tabs class="movies-header" type="border-card" stretch="true" v-model="keyword">
             <el-tab-pane label="动画" name="动画" ></el-tab-pane>
             <el-tab-pane label="国风" name="国风"></el-tab-pane>
             <el-tab-pane label="科幻" name="科幻" ></el-tab-pane>
             <el-tab-pane label="剧情" name="剧情"></el-tab-pane>
             <el-tab-pane label="惊悚" name="惊悚" ></el-tab-pane>
         </el-tabs>
-        <div class="item" v-for="movie in movies" :key="movie.movie_id">
-            <img class="pic" :src="movie.poster_url">
-            <div class="intro">
-                <div class="m-title">{{movie.title}}</div>
-                <div class="score">{{movie.score}}</div>
-                <!--img @click="like(movie)" class="love" v-if="!movie.isClick" :src="love"-->
-                <img @click="like(movie)" class="love" :src="
-                    movie.isClick ? loveActive : love">
-                <div class="abstract">{{movie.introduction}}</div>
+        <div class="movies-content">
+            <div class="item" v-for="movie in movies" :key="movie.movie_id">
+                <img class="pic" :src="movie.poster_url">
+                <div class="intro">
+                    <div class="m-title">{{movie.title}}</div>
+                    <div class="score">{{movie.score}}</div>
+                    <!--img @click="like(movie)" class="love" v-if="!movie.isClick" :src="love"-->
+                    <img @click="like(movie)" class="love" :src="
+                        movie.isClick ? loveActive : love">
+                    <div class="abstract">{{movie.introduction}}</div>
+                </div>
             </div>
         </div>
+
     </div>
 </template>
 
@@ -32,15 +46,18 @@
         data(){
             return{
                 keyword:'',
-                tot:0,
+                //tot:0,
                 movies: [],
                 love:love,
                 loveActive:loveActive,
+                isLoad:false,
             }
         },
         watch:{
             keyword(){
+                var self = this;
                 console.log("keyword",this.keyword)
+                this.isLoad=true;
                 $.ajax({
                     url:baseUrl+"/movieList",
                     type:"post",
@@ -59,16 +76,20 @@
                             introduction: movie.introduction,
                             isClick: movie.isSelected // isClick
                         }))
-                        console.log("movies = ",this.movies)
+                        self.isLoad=false;
+                        console.log("movies = ",self.movies)
                     },
                     statusCode:{
                         400(){
+                            self.isLoad=false;
                             console.log("电影类型错误")
                         },
                         401(){
+                            self.isLoad=false;
                             location.href=bbt+encodeURIComponent(location.href);
                         },
                         410(){
+                            self.isLoad=false;
                             alert("活动不在进行期间")
                         }
                     }
@@ -77,6 +98,8 @@
         },
         methods:{
             like(movie){
+                var self = this;
+                this.isLoad=true;
                 $.ajax({
                     url:baseUrl+"/like",
                     type:"post",
@@ -87,33 +110,32 @@
                     dataType:"JSON",
                     xhrFields:{withCredentials:true},
                     success:res=>{
-                        this.tot=res.selectNum
+                        //this.tot=res.selectNum;
                         movie.isClick=true;//!movie.isClick
-                        this.$forceUpdate()
+                        self.isLoad=false;
+                        self.$forceUpdate()
                     },
                     statusCode:{
                         401(){
+                            self.isLoad=false;
                             location.href=bbt+encodeURIComponent(location.href);
                         },
                         403(){
+                            self.isLoad=false;
                             alert("投票不能再多了")
                         },
                         410(){
+                            self.isLoad=false;
                             alert("活动不在进行期间")
                         }
                     }
                 })
             }
-            /*<<<<<<< HEAD
-             }
-            }
-            =======*/
         },
         mounted(){
             this.keyword="动画"
         }
     }
-    //>>>>>>> e872dfb3d52a753e1d6933af0407cdec46d72ffb
 </script>
 
 <style>
@@ -191,5 +213,72 @@
         /*width:32px;*/
         height:28px;
         position:absolute;
+    }
+
+    /* Fixed content */
+    .movies-header {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        height: 42px;
+    }
+    .movies-content{
+        position: fixed;
+        top: 42px;
+        left: 0; right: 0;
+        bottom: 0;
+        overflow-y: scroll;
+    }
+
+    /* Add loading */
+    .box{
+        position:fixed;
+        top:0; left:0;
+        width:100%;
+        height:100%;
+        background: #e0dcdc;
+        opacity:0.5;
+        z-index:200;
+    }
+    .loading{
+        width:100%;
+        height: 15px;
+        margin: 0 auto;
+        margin-top:60%;
+        text-align:center;
+    }
+    .loading span{
+        display: inline-block;
+        width: 15px;
+        height: 100%;
+        margin-right: 5px;
+        border-radius: 50%;
+        background: black;
+        animation: load 1.04s ease infinite;
+    }
+    .loading span:last-child{
+        margin-right: 0px;
+    }
+    @keyframes load{
+        0%{
+            opacity: 1;
+        }
+        100%{
+            opacity: 0;
+        }
+    }
+    .loading span:nth-child(1){
+        animation-delay:0.13s;
+    }
+    .loading span:nth-child(2){
+        animation-delay:0.26s;
+    }
+    .loading span:nth-child(3){
+        animation-delay:0.39s;
+    }
+    .loading span:nth-child(4){
+        animation-delay:0.52s;
+    }
+    .loading span:nth-child(5){
+        animation-delay:0.65s;
     }
 </style>

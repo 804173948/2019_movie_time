@@ -8,9 +8,10 @@
 
 export default {
   name: 'app',
+  /*
   mounted(){
-    this.$router.push("vote");
-  }
+    this.$router.push("index");
+  }*/
 }
 </script>
 
