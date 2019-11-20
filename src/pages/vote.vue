@@ -50,7 +50,7 @@
 <script>
     import love from "../assets/thumb1.png"
     import loveActive from "../assets/thumb2.png"
-    import {bbt, PREFIX, baseUrl} from "../main"
+    import {bbt, PREFIX, baseUrl,wxshare} from "../main"
     import $ from "jquery"
 
     export default {

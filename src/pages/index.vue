@@ -23,6 +23,7 @@ import cloud from "../assets/cloud.png"
 import btn1 from "../components/btn1"
 import btn2 from "../components/btn2"
 import btn3 from "../components/btn3"
+import {bbt, PREFIX, baseUrl,wxshare} from "../main"
 export default {
   name: "index",
   data(){
